@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import projects from "../../projects.data.js";
+const { slug } = Astro.params;
+const p = projects.find(x => x.slug === slug);
+if (!p) throw new Error("Missing project: " + slug);
+---
+<Layout title={`${p.title} — Max Burkhardt`}>
+  <p><a href="/projects">← All projects</a></p>
+  <h2>{p.title}</h2>
+  <p><em>{p.role}</em></p>
+  <p>{p.pitch}</p>
+
+  {p.highlights?.length && (
+    <>
+      <h3>Highlights</h3>
+      <ul>{p.highlights.map(h => <li>{h}</li>)}</ul>
+    </>
+  )}
+
+  {p.media?.length && (
+    <>
+      <h3>Media</h3>
+      <ul>{p.media.map(m => <li><a href={m.href} target="_blank">{m.label}</a></li>)}</ul>
+    </>
+  )}
+
+  {p.links?.length && (
+    <>
+      <h3>Code & Links</h3>
+      <ul>{p.links.map(l => <li><a href={l.href} target="_blank">{l.label}</a></li>)}</ul>
+    </>
+  )}
+
+  {p.lessons?.length && (
+    <>
+      <h3>Lessons learned</h3>
+      <ul>{p.lessons.map(l => <li>{l}</li>)}</ul>
+    </>
+  )}
+</Layout>
