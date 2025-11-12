@@ -1,12 +1,11 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import projects from "../projects.data.js";
-const featured = projects.slice(0,3);
+import Layout from "../../layouts/Layout.astro";
+import projects from "../../projects.data.js";
 ---
-<Layout title="Max Burkhardt — Game Dev Portfolio">
-  <h2>Featured</h2>
+<Layout title="Projects — Max Burkhardt">
+  <h2>Projects</h2>
   <div class="grid">
-    {featured.map(p => (
+    {projects.map(p => (
       <a class="card" href={`/projects/${p.slug}/`}>
         <h3 style="margin:.2rem 0;">{p.title}</h3>
         <p class="muted" style="margin:.2rem 0;">{p.pitch}</p>
