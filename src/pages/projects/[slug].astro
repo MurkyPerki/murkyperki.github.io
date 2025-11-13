@@ -1,9 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import projects from "../../projects.data.js";
-const { slug } = Astro.params;
-const p = projects.find(x => x.slug === slug);
-if (!p) throw new Error("Missing project: " + slug);
+
+export async function getStaticPaths() {
+  return projects.map((p) => ({
+    params: { slug: p.slug },
+    props: { p },
+  }));
+}
+
+const { p } = Astro.props;
 ---
 <Layout title={`${p.title} — Max Burkhardt`}>
   <p><a href="/projects">← All projects</a></p>
