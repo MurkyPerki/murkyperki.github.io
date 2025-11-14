@@ -5,17 +5,23 @@ import { getCollection, type CollectionEntry } from "astro:content";
 const projects: CollectionEntry<"projects">[] = await getCollection("projects");
 ---
 <Layout title="Projects — Max Burkhardt">
-  <section style="margin-top: 2rem;">
-    <h2>Projects</h2>
+  <section style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
+    <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 3rem;">Projects</h1>
+    
     <div class="projects-grid">
       {projects.map((p) => (
         <a class="project-card" href={`/projects/${p.slug}/`}>
-          <div class="project-content">
+          <div class="project-thumbnail">
+            <div class="thumbnail-placeholder">
+              <span>{p.data.title}</span>
+            </div>
+            <!-- Replace placeholder with actual image when available -->
+            <!-- <img src="/images/projects/project-name.jpg" alt={p.data.title} /> -->
+          </div>
+          <div class="project-info">
             <h3>{p.data.title}</h3>
             {p.data.role && <p class="role">{p.data.role}</p>}
-            {p.data.pitch && <p class="pitch">{p.data.pitch}</p>}
           </div>
-          <div class="arrow">→</div>
         </a>
       ))}
     </div>
@@ -24,105 +30,92 @@ const projects: CollectionEntry<"projects">[] = await getCollection("projects");
   <style>
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
-      margin-top: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      padding-bottom: 4rem;
     }
 
     .project-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      aspect-ratio: 1;
-      padding: 2rem;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      color: inherit;
+      display: block;
       text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--link), var(--link-hover));
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      color: inherit;
+      transition: opacity 0.2s ease;
+      cursor: pointer;
     }
 
     .project-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      border-color: var(--link);
-      background: var(--card-hover);
+      opacity: 0.5;
     }
 
-    .project-card:hover::before {
-      opacity: 0.08;
-    }
-
-    [data-theme="dark"] .project-card {
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-    }
-
-    [data-theme="dark"] .project-card:hover {
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3), 0 10px 10px -5px rgba(0,0,0,0.2);
-    }
-
-    [data-theme="light"] .project-card {
-      box-shadow: 0 2px 4px rgba(45, 42, 36, 0.08), 0 4px 8px rgba(45, 42, 36, 0.06);
-    }
-
-    [data-theme="light"] .project-card:hover {
-      box-shadow: 0 12px 24px -6px rgba(45, 42, 36, 0.15), 0 8px 16px -4px rgba(45, 42, 36, 0.1);
-    }
-
-    .project-content {
+    .project-thumbnail {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
       position: relative;
-      z-index: 1;
     }
 
-    .project-card h3 {
+    .thumbnail-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--card) 0%, var(--border) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .thumbnail-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(192, 132, 252, 0.05) 100%);
+    }
+
+    .thumbnail-placeholder span {
       font-size: 1.25rem;
       font-weight: 600;
-      margin: 0 0 0.75rem 0;
+      color: var(--muted);
+      opacity: 0.3;
+      z-index: 1;
+      position: relative;
+    }
+
+    .project-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-info h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
       line-height: 1.3;
     }
 
     .role {
-      color: var(--link);
-      font-size: 0.875rem;
-      font-weight: 500;
-      margin: 0.5rem 0;
-    }
-
-    .pitch {
       color: var(--muted);
       font-size: 0.9375rem;
-      margin: 0.5rem 0 0 0;
+      font-weight: 400;
+      margin: 0;
       line-height: 1.5;
-    }
-
-    .arrow {
-      position: relative;
-      z-index: 1;
-      font-size: 1.5rem;
-      color: var(--muted);
-      align-self: flex-end;
-      transition: transform 0.3s ease, color 0.3s ease;
-    }
-
-    .project-card:hover .arrow {
-      transform: translateX(4px);
-      color: var(--link);
     }
 
     @media (max-width: 768px) {
       .projects-grid {
         grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>

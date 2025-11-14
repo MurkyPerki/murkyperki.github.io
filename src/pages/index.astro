@@ -2,137 +2,164 @@
 import Layout from "../layouts/Layout.astro";
 ---
 <Layout title="Max Burkhardt — Portfolio">
-  <section style="max-width: 720px; margin: 4rem auto 0;">
-    <h1 style="background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-      Max Burkhardt
-    </h1>
-    <p style="font-size: 1.5rem; color: var(--muted); margin-top: 1rem; font-weight: 500;">
-      Game Developer & Designer
-    </p>
-    
-    <p style="margin-top: 2rem; font-size: 1.125rem; color: var(--text); line-height: 1.7;">
-      Welcome! I'm a game dev student at HvA with a passion for 
-      gameplay feel, level design, and clean code. Explore my work below.
-    </p>
+  <section style="max-width: 900px; margin: 2rem auto 0;">
+    <div class="hero">
+      <h1>Max Burkhardt</h1>
+      <p class="subtitle">Game Developer & Designer</p>
+      <p class="intro">
+        Game dev student at HvA with a passion for gameplay feel, level design, and clean code.
+      </p>
+    </div>
 
-    <div style="margin-top: 4rem;">
-      <h2>Explore</h2>
-      <div class="explore-grid">
-        <a class="square-btn" href="/projects">
-          <span class="btn-icon">🎮</span>
+    <div class="explore-grid">
+      <a class="explore-card" href="/projects">
+        <div class="card-image">
+          <div class="placeholder-content">Projects</div>
+          <!-- Replace with: <img src="/images/projects-preview.jpg" alt="Projects" /> -->
+        </div>
+        <div class="card-info">
           <h3>Projects</h3>
-          <p>View portfolio</p>
-        </a>
-        <a class="square-btn" href="/about">
-          <span class="btn-icon">👨‍💻</span>
+          <p>Game development portfolio</p>
+        </div>
+      </a>
+      
+      <a class="explore-card" href="/about">
+        <div class="card-image">
+          <div class="placeholder-content">About</div>
+          <!-- Replace with: <img src="/images/about-preview.jpg" alt="About" /> -->
+        </div>
+        <div class="card-info">
           <h3>About Me</h3>
-          <p>My story</p>
-        </a>
-        <a class="square-btn" href="https://github.com/murkyperki" target="_blank" rel="noreferrer">
-          <span class="btn-icon">💻</span>
+          <p>Skills & experience</p>
+        </div>
+      </a>
+      
+      <a class="explore-card" href="https://github.com/murkyperki" target="_blank" rel="noreferrer">
+        <div class="card-image">
+          <div class="placeholder-content">GitHub</div>
+          <!-- Replace with: <img src="/images/github-preview.jpg" alt="GitHub" /> -->
+        </div>
+        <div class="card-info">
           <h3>GitHub</h3>
-          <p>Code repos</p>
-        </a>
-        <a class="square-btn" href="/CV.pdf" target="_blank">
-          <span class="btn-icon">📄</span>
+          <p>Code repositories</p>
+        </div>
+      </a>
+      
+      <a class="explore-card" href="/CV.pdf" target="_blank">
+        <div class="card-image">
+          <div class="placeholder-content">Resume</div>
+          <!-- Replace with: <img src="/images/cv-preview.jpg" alt="CV" /> -->
+        </div>
+        <div class="card-info">
           <h3>Resume</h3>
           <p>Download CV</p>
-        </a>
-      </div>
+        </div>
+      </a>
     </div>
   </section>
 
   <style>
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+      padding: 2rem 1rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.5rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .intro {
+      font-size: 1.125rem;
+      color: var(--text);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
     .explore-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-      margin-top: 2rem;
+      gap: 1.5rem;
+      padding: 0 1rem;
     }
 
-    .square-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      aspect-ratio: 1;
-      padding: 2rem;
+    .explore-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s ease;
+    }
+
+    .explore-card:hover {
+      opacity: 0.5;
+    }
+
+    .card-image {
+      width: 100%;
+      aspect-ratio: 4/3;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      color: inherit;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
+      border-radius: 4px;
       overflow: hidden;
+      margin-bottom: 0.75rem;
+      position: relative;
     }
 
-    .square-btn::before {
-      content: '';
+    .placeholder-content {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, var(--link), var(--link-hover));
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--muted);
+      opacity: 0.3;
+      background: linear-gradient(135deg, var(--card) 0%, var(--border) 50%);
     }
 
-    .square-btn:hover {
-      transform: translateY(-6px) scale(1.02);
-      border-color: var(--link);
-      background: var(--card-hover);
-    }
-
-    .square-btn:hover::before {
-      opacity: 0.08;
-    }
-
-    [data-theme="dark"] .square-btn {
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-    }
-
-    [data-theme="dark"] .square-btn:hover {
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3), 0 10px 10px -5px rgba(0,0,0,0.2);
-    }
-
-    [data-theme="light"] .square-btn {
-      box-shadow: 0 2px 4px rgba(45, 42, 36, 0.08), 0 4px 8px rgba(45, 42, 36, 0.06);
-    }
-
-    [data-theme="light"] .square-btn:hover {
-      box-shadow: 0 12px 24px -6px rgba(45, 42, 36, 0.15), 0 8px 16px -4px rgba(45, 42, 36, 0.1);
-    }
-
-    .btn-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
       position: relative;
-      z-index: 1;
-      transition: transform 0.3s ease;
+      z-index: 2;
     }
 
-    .square-btn:hover .btn-icon {
-      transform: scale(1.1);
-    }
-
-    .square-btn h3 {
+    .card-info h3 {
       font-size: 1.25rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
-      position: relative;
-      z-index: 1;
+      margin-bottom: 0.25rem;
     }
 
-    .square-btn p {
-      color: var(--muted);
+    .card-info p {
       font-size: 0.9375rem;
-      position: relative;
-      z-index: 1;
+      color: var(--muted);
       margin: 0;
     }
 
     @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .subtitle {
+        font-size: 1.25rem;
+      }
       .explore-grid {
         grid-template-columns: 1fr;
       }
