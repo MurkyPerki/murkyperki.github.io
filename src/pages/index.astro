@@ -1,168 +1,109 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+// Show first 3 projects as featured
+const featuredProjects = projects.slice(0, 3);
 ---
 <Layout title="Max Burkhardt — Portfolio">
-  <section style="max-width: 900px; margin: 2rem auto 0;">
-    <div class="hero">
-      <h1>Max Burkhardt</h1>
-      <p class="subtitle">Game Developer & Designer</p>
-      <p class="intro">
-        Game dev student at HvA with a passion for gameplay feel, level design, and clean code.
-      </p>
-    </div>
+  <Fragment slot="head">
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="Max Burkhardt — Game Developer Portfolio" />
+    <meta property="og:description" content="Game development student passionate about gameplay programming, level design, and AI implementation." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://murkyperki.github.io/" />
+  </Fragment>
 
-    <div class="explore-grid">
-      <a class="explore-card" href="/projects">
-        <div class="card-image">
-          <div class="placeholder-content">Projects</div>
-          <!-- Replace with: <img src="/images/projects-preview.jpg" alt="Projects" /> -->
-        </div>
-        <div class="card-info">
-          <h3>Projects</h3>
-          <p>Game development portfolio</p>
-        </div>
-      </a>
-      
-      <a class="explore-card" href="/about">
-        <div class="card-image">
-          <div class="placeholder-content">About</div>
-          <!-- Replace with: <img src="/images/about-preview.jpg" alt="About" /> -->
-        </div>
-        <div class="card-info">
-          <h3>About Me</h3>
-          <p>Skills & experience</p>
-        </div>
-      </a>
-      
-      <a class="explore-card" href="https://github.com/murkyperki" target="_blank" rel="noreferrer">
-        <div class="card-image">
-          <div class="placeholder-content">GitHub</div>
-          <!-- Replace with: <img src="/images/github-preview.jpg" alt="GitHub" /> -->
-        </div>
-        <div class="card-info">
-          <h3>GitHub</h3>
-          <p>Code repositories</p>
-        </div>
-      </a>
-      
-      <a class="explore-card" href="/CV.pdf" target="_blank">
-        <div class="card-image">
-          <div class="placeholder-content">Resume</div>
-          <!-- Replace with: <img src="/images/cv-preview.jpg" alt="CV" /> -->
-        </div>
-        <div class="card-info">
-          <h3>Resume</h3>
-          <p>Download CV</p>
-        </div>
-      </a>
+  <!-- Hero Section -->
+  <section class="hero container reveal" style="padding: var(--spacing-2xl) var(--spacing-md); text-align: center;">
+    <h1 style="font-size: 3rem; margin-bottom: var(--spacing-sm);">Max Burkhardt</h1>
+    <p style="font-size: 1.5rem; color: var(--color-text-muted); margin-bottom: var(--spacing-md);">Game Developer & Gameplay Programmer</p>
+    <p style="font-size: 1.125rem; max-width: 600px; margin: 0 auto var(--spacing-xl); line-height: 1.8; color: var(--color-text-muted);">
+      HvA student passionate about creating responsive movement systems, satisfying combat mechanics, and intelligent AI behavior.
+    </p>
+    <div style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap;">
+      <a href="/projects" class="btn">View Projects</a>
+      <a href="/CV.pdf" target="_blank" rel="noopener" class="btn btn-secondary">Download CV</a>
     </div>
   </section>
 
-  <style>
-    .hero {
-      text-align: center;
-      margin-bottom: 4rem;
-      padding: 2rem 1rem;
-    }
+  <!-- Featured Projects -->
+  <section class="container reveal" style="padding: var(--spacing-xl) var(--spacing-md);">
+    <h2 style="text-align: center; margin-bottom: var(--spacing-xl);">Featured Projects</h2>
+    <div class="grid">
+      {featuredProjects.map((project) => (
+        <a href={`/projects/${project.slug}/`} class="card">
+          {project.data.cover && (
+            <img 
+              src={project.data.cover} 
+              alt={`${project.data.title} cover`}
+              style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: var(--spacing-md);"
+            />
+          )}
+          {!project.data.cover && (
+            <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-border) 100%); border-radius: 8px; margin-bottom: var(--spacing-md); display: flex; align-items: center; justify-content: center; color: var(--color-text-muted); opacity: 0.5;">
+              {project.data.title}
+            </div>
+          )}
+          <h3>{project.data.title}</h3>
+          {project.data.role && (
+            <p style="font-size: 0.875rem; color: var(--color-primary); font-weight: 600; margin-bottom: var(--spacing-sm);">{project.data.role}</p>
+          )}
+          {project.data.pitch && (
+            <p style="color: var(--color-text-muted); margin-bottom: var(--spacing-sm);">{project.data.pitch}</p>
+          )}
+          {project.data.highlights && project.data.highlights.length > 0 && (
+            <div class="tags">
+              {project.data.highlights.slice(0, 3).map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </a>
+      ))}
+    </div>
+    <div style="text-align: center; margin-top: var(--spacing-xl);">
+      <a href="/projects" class="btn btn-secondary">View All Projects →</a>
+    </div>
+  </section>
 
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .subtitle {
-      font-size: 1.5rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      font-weight: 500;
-    }
-
-    .intro {
-      font-size: 1.125rem;
-      color: var(--text);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    .explore-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      padding: 0 1rem;
-    }
-
-    .explore-card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      transition: opacity 0.2s ease;
-    }
-
-    .explore-card:hover {
-      opacity: 0.5;
-    }
-
-    .card-image {
-      width: 100%;
-      aspect-ratio: 4/3;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 0.75rem;
-      position: relative;
-    }
-
-    .placeholder-content {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--muted);
-      opacity: 0.3;
-      background: linear-gradient(135deg, var(--card) 0%, var(--border) 50%);
-    }
-
-    .card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      position: relative;
-      z-index: 2;
-    }
-
-    .card-info h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .card-info p {
-      font-size: 0.9375rem;
-      color: var(--muted);
-      margin: 0;
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-      .subtitle {
-        font-size: 1.25rem;
-      }
-      .explore-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <!-- About Me Snippet -->
+  <section class="container reveal" style="padding: var(--spacing-xl) var(--spacing-md); background: var(--color-bg-secondary); border-radius: 12px; margin-bottom: var(--spacing-2xl);">
+    <div class="content-narrow" style="text-align: center;">
+      <h2 style="margin-bottom: var(--spacing-lg);">About Me</h2>
+      <p style="font-size: 1.125rem; line-height: 1.8; color: var(--color-text-muted); margin-bottom: var(--spacing-lg);">
+        I'm a game development student at HvA with a passion for gameplay programming, 
+        level design, and AI implementation. I love making movement feel responsive and 
+        combat satisfying.
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+        <div>
+          <strong>🎮 Focus Areas</strong>
+          <p style="color: var(--color-text-muted); margin-top: var(--spacing-xs);">Gameplay Programming, Level Design</p>
+        </div>
+        <div>
+          <strong>🛠️ Tech Stack</strong>
+          <p style="color: var(--color-text-muted); margin-top: var(--spacing-xs);">Unity, C#, JavaScript, Git</p>
+        </div>
+        <div>
+          <strong>🎯 Interests</strong>
+          <p style="color: var(--color-text-muted); margin-top: var(--spacing-xs);">AI, Physics, Combat Systems</p>
+        </div>
+      </div>
+      <a href="/about" class="btn btn-secondary">Learn More About Me →</a>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  /* Additional page-specific styles */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem !important;
+    }
+    .hero p:first-of-type {
+      font-size: 1.25rem !important;
+    }
+  }
+</style>

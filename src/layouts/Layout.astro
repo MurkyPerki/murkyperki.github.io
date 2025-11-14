@@ -1,359 +1,326 @@
 ---
-const { title = "Max Burkhardt — Portfolio" } = Astro.props;
+const { title = "Max Burkhardt — Portfolio", description = "Game development student passionate about gameplay programming, level design, and AI implementation." } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{title}</title>
-    <style>
+    <meta name="description" content={description} />
+    
+    <!-- Pico.css CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    
+    <!-- Page-specific head tags slot -->
+    <slot name="head" />
+    
+    <style is:global>
+      /* CSS Custom Properties */
       :root {
-        --maxw: 1100px;
+        --spacing-xs: 0.5rem;
+        --spacing-sm: 1rem;
+        --spacing-md: 1.5rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 3rem;
+        --spacing-2xl: 4rem;
+        
+        --container-max-width: 1200px;
+        --content-max-width: 800px;
+        
+        --color-primary: #6366f1;
+        --color-primary-hover: #4f46e5;
+        --color-text: #1f2937;
+        --color-text-muted: #6b7280;
+        --color-bg: #ffffff;
+        --color-bg-secondary: #f9fafb;
+        --color-border: #e5e7eb;
+        
+        --transition-base: 200ms ease;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
       }
       
-      [data-theme="dark"] {
-        --bg: #202020;
-        --text: #e8e8e8;
-        --muted: #b4b4b4;
-        --card: #242424;
-        --card-hover: #2d2d2d;
-        --link: #5588f7;
-        --link-hover: #899afa;
-        --border: #3a3a3a;
-        --nav-active: #2d2d2d;
-      }
-      
-      [data-theme="light"] {
-        --bg: #f5f1e8;
-        --text: #2d2a24;
-        --muted: #6b6760;
-        --card: #faf8f3;
-        --card-hover: #ffffff;
-        --link: #3a96ed;
-        --link-hover: #255fcc;
-        --border: #e0dcd0;
-        --nav-active: #ebe7dc;
-      }
-      
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      
+      /* Override Pico defaults for cleaner look */
       body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-        line-height: 1.6;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+        line-height: 1.7;
+        color: var(--color-text);
+        background-color: var(--color-bg);
       }
       
-      header {
+      /* Typography */
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: var(--spacing-md);
+      }
+      
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      h3 { font-size: 1.5rem; }
+      
+      /* Header / Navigation */
+      header.site-header {
         position: sticky;
         top: 0;
-        z-index: 100;
-        background: var(--bg);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border);
-        transition: background-color 0.3s ease, border-color 0.3s ease;
-      }
-      
-      [data-theme="dark"] header {
-        background: rgba(26, 26, 26, 0.8);
-      }
-      
-      [data-theme="light"] header {
-        background: rgba(245, 241, 232, 0.8);
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--spacing-sm) 0;
       }
       
       .header-container {
-        max-width: var(--maxw);
+        max-width: var(--container-max-width);
         margin: 0 auto;
-        padding: 1rem 1.5rem;
+        padding: 0 var(--spacing-md);
         display: flex;
         align-items: center;
-        justify-content: center;
-        position: relative;
+        justify-content: space-between;
       }
       
-      .logo {
-        position: absolute;
-        left: 1.5rem;
-        font-size: 1.125rem;
+      .brand {
+        font-size: 1.25rem;
         font-weight: 700;
-        color: var(--text);
+        color: var(--color-text);
         text-decoration: none;
         letter-spacing: -0.02em;
       }
       
-      .nav-content {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+      .brand:hover {
+        color: var(--color-primary);
       }
       
       nav {
         display: flex;
-        gap: 0.5rem;
         align-items: center;
+        gap: var(--spacing-xs);
       }
       
       nav a {
-        color: var(--muted);
+        color: var(--color-text-muted);
         text-decoration: none;
         font-weight: 500;
         font-size: 0.9375rem;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        transition: all 0.2s ease;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: 6px;
+        transition: all var(--transition-base);
       }
       
       nav a:hover {
-        color: var(--text);
-        background: var(--nav-active);
+        color: var(--color-text);
+        background: var(--color-bg-secondary);
       }
       
       nav a.active {
-        color: var(--text);
-        background: var(--nav-active);
+        color: var(--color-primary);
+        background: var(--color-bg-secondary);
       }
       
-      nav a.external {
+      nav a.external-icon {
         display: inline-flex;
         align-items: center;
         gap: 0.25rem;
       }
       
-      .theme-toggle {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 0.5rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-        color: var(--text);
-      }
-      
-      .theme-toggle:hover {
-        background: var(--card-hover);
-        border-color: var(--link);
-      }
-      
-      .theme-icon {
-        width: 20px;
-        height: 20px;
-        display: block;
-      }
-      
+      /* Main content area */
       main {
-        max-width: var(--maxw);
-        margin: 0 auto;
-        padding: 3rem 1.5rem;
         min-height: calc(100vh - 200px);
       }
       
-      h1, h2, h3 { line-height: 1.2; }
-      h1 { font-size: 2.5rem; font-weight: 800; }
-      h2 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1.5rem; }
-      h3 { font-size: 1.25rem; font-weight: 600; }
+      .container {
+        max-width: var(--container-max-width);
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+      }
       
-      .muted { color: var(--muted); }
+      .content-narrow {
+        max-width: var(--content-max-width);
+        margin: 0 auto;
+      }
       
+      /* Grid utility */
       .grid {
         display: grid;
-        gap: 1.5rem;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        margin-top: 2rem;
-      }
-      
-      .card {
-        display: block;
-        padding: 1.75rem;
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        color: inherit;
-        text-decoration: none;
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-      }
-      
-      [data-theme="light"] .card {
-        box-shadow: 0 2px 4px rgba(45, 42, 36, 0.08), 0 4px 8px rgba(45, 42, 36, 0.06);
-      }
-      
-      .card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--link), var(--link-hover));
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.3s ease;
-      }
-      
-      .card:hover {
-        transform: translateY(-4px);
-        border-color: var(--link);
-        background: var(--card-hover);
-      }
-      
-      [data-theme="dark"] .card:hover {
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2);
-      }
-      
-      [data-theme="light"] .card:hover {
-        box-shadow: 0 8px 16px rgba(45, 42, 36, 0.12), 0 4px 8px rgba(45, 42, 36, 0.08);
-      }
-      
-      .card:hover::before {
-        transform: scaleX(1);
-      }
-      
-      .card-icon {
-        font-size: 2rem;
-        margin-bottom: 0.75rem;
-        display: block;
-      }
-      
-      .card h3 {
-        margin-bottom: 0.5rem;
-        font-size: 1.125rem;
-      }
-      
-      .card p {
-        color: var(--muted);
-        font-size: 0.9375rem;
-        line-height: 1.5;
-      }
-      
-      footer {
-        max-width: var(--maxw);
-        margin: 0 auto;
-        padding: 2rem 1.5rem;
-        text-align: center;
-        color: var(--muted);
-        font-size: 0.875rem;
-        border-top: 1px solid var(--border);
+        gap: var(--spacing-lg);
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       }
       
       @media (max-width: 768px) {
-        .header-container {
-          justify-content: space-between;
-        }
-        .logo {
-          position: static;
-        }
-        .nav-content {
-          gap: 0.5rem;
-        }
-        nav {
-          gap: 0.25rem;
-        }
-        nav a {
-          padding: 0.5rem 0.75rem;
-          font-size: 0.875rem;
-        }
-        h1 { font-size: 2rem; }
         .grid {
           grid-template-columns: 1fr;
         }
       }
+      
+      /* Card component */
+      .card {
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        padding: var(--spacing-lg);
+        transition: all var(--transition-base);
+        box-shadow: var(--shadow-sm);
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--color-primary);
+      }
+      
+      /* Tag pills */
+      .tag {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border);
+        border-radius: 999px;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: var(--color-text-muted);
+        white-space: nowrap;
+      }
+      
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-sm);
+      }
+      
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-xs);
+        padding: 0.75rem 1.5rem;
+        background: var(--color-primary);
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 8px;
+        transition: all var(--transition-base);
+        border: none;
+        cursor: pointer;
+      }
+      
+      .btn:hover {
+        background: var(--color-primary-hover);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+      
+      .btn-secondary {
+        background: white;
+        color: var(--color-text);
+        border: 2px solid var(--color-border);
+      }
+      
+      .btn-secondary:hover {
+        background: var(--color-bg-secondary);
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+      }
+      
+      /* Reveal animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* Add stagger delays for multiple reveals */
+      .reveal:nth-child(1) { transition-delay: 0ms; }
+      .reveal:nth-child(2) { transition-delay: 100ms; }
+      .reveal:nth-child(3) { transition-delay: 200ms; }
+      .reveal:nth-child(4) { transition-delay: 300ms; }
+      
+      /* Footer */
+      footer {
+        margin-top: var(--spacing-2xl);
+        padding: var(--spacing-lg) 0;
+        border-top: 1px solid var(--color-border);
+        text-align: center;
+        color: var(--color-text-muted);
+        font-size: 0.875rem;
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.75rem; }
+        
+        .header-container {
+          padding: 0 var(--spacing-sm);
+        }
+        
+        nav {
+          gap: 0.25rem;
+        }
+        
+        nav a {
+          padding: var(--spacing-xs);
+          font-size: 0.875rem;
+        }
+        
+        .container {
+          padding: 0 var(--spacing-sm);
+        }
+      }
+      
+      /* Focus styles for accessibility */
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+      }
     </style>
-    <script>
-      // Theme toggle functionality
-      function initTheme() {
-        const theme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', theme);
-      }
-      
-      function toggleTheme() {
-        const html = document.documentElement;
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        // Update icon
-        updateThemeIcon(newTheme);
-      }
-      
-      function updateThemeIcon(theme: string) {
-        const icon = document.querySelector('.theme-icon');
-        if (icon) {
-          icon.innerHTML = theme === 'dark' 
-            ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
-            : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-        }
-      }
-      
-      // Initialize theme on page load
-      initTheme();
-      
-      // Set up theme toggle button
-      document.addEventListener('DOMContentLoaded', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        updateThemeIcon(currentTheme);
-        
-        const themeToggle = document.querySelector('.theme-toggle');
-        if (themeToggle) {
-          themeToggle.addEventListener('click', toggleTheme);
-        }
-      });
-      
-      // Handle page navigation (for Astro view transitions)
-      document.addEventListener('astro:page-load', () => {
-        initTheme();
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        updateThemeIcon(currentTheme);
-        
-        const themeToggle = document.querySelector('.theme-toggle');
-        if (themeToggle) {
-          themeToggle.removeEventListener('click', toggleTheme);
-          themeToggle.addEventListener('click', toggleTheme);
-        }
-      });
-    </script>
+    
+    <!-- Load reveal animation script -->
+    <script src="/src/scripts/reveal.ts" type="module"></script>
   </head>
   <body>
-    <header>
+    <header class="site-header">
       <div class="header-container">
-        <a href="/" class="logo">MB</a>
-        <div class="nav-content">
-          <nav>
-            <a href="/" class={currentPath === '/' ? 'active' : ''}>Home</a>
-            <a href="/about" class={currentPath === '/about' ? 'active' : ''}>About</a>
-            <a href="/projects" class={currentPath.startsWith('/projects') ? 'active' : ''}>Projects</a>
-            <a href="https://github.com/murkyperki" class="external" target="_blank" rel="noreferrer">
-              GitHub
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-              </svg>
-            </a>
-            <a href="/CV.pdf" class="external" target="_blank">
-              CV
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-              </svg>
-            </a>
-          </nav>
-          <button class="theme-toggle" aria-label="Toggle theme">
-            <span class="theme-icon"></span>
-          </button>
-        </div>
+        <a href="/" class="brand">Max Burkhardt</a>
+        <nav aria-label="Main navigation">
+          <a href="/" class={currentPath === '/' ? 'active' : ''}>Home</a>
+          <a href="/projects" class={currentPath.startsWith('/projects') ? 'active' : ''}>Projects</a>
+          <a href="/about" class={currentPath === '/about' ? 'active' : ''}>About</a>
+          <a href="/CV.pdf" target="_blank" rel="noopener" class="external-icon">
+            CV
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+            </svg>
+          </a>
+          <a href="https://github.com/murkyperki" target="_blank" rel="noopener" class="external-icon" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </nav>
       </div>
     </header>
-    <main><slot /></main>
+    
+    <main>
+      <slot />
+    </main>
+    
     <footer>
-      <p>&copy; 2025 Max Burkhardt. All rights reserved.</p>
+      <div class="container">
+        <p>&copy; 2025 Max Burkhardt. All rights reserved.</p>
+      </div>
     </footer>
   </body>
 </html>
