@@ -23,7 +23,7 @@ const { Content } = await p.render();
         <h2>Highlights</h2>
         <ul style="list-style: none; padding: 0;">
           {p.data.highlights.map((h: string) => (
-            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">✨ {h}</li>
+            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"> {h}</li>
           ))}
         </ul>
       </section>
@@ -54,7 +54,9 @@ const { Content } = await p.render();
                     <video 
                       src={src} 
                       poster={poster}
-                      controls 
+                      autoplay
+                      muted
+                      loop
                       style="width: 100%; border-radius: 8px; border: 1px solid var(--border);"
                     >
                       Your browser doesn't support video.
@@ -129,7 +131,7 @@ const { Content } = await p.render();
         <h2>Lessons Learned</h2>
         <ul style="list-style: none; padding: 0;">
           {p.data.lessons.map((l: string) => (
-            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);">💡 {l}</li>
+            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border);"> {l}</li>
           ))}
         </ul>
       </section>
@@ -151,15 +153,15 @@ const { Content } = await p.render();
     .placeholder-gallery {
       display: grid;
       gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(2, minmax(500px, 1fr));
       width: 100%;
     }
-
+    
     .placeholder-item {
       aspect-ratio: 16/9;
       background: var(--card);
       border: 2px dashed var(--border);
-      border-radius: 8px;
+      border-radius: 1px;
       display: flex;
       flex-direction: column;
       align-items: center;
