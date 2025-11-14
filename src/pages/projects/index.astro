@@ -1,122 +1,57 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
-const projects: CollectionEntry<"projects">[] = await getCollection("projects");
+const projects = await getCollection("projects");
 ---
-<Layout title="Projects — Max Burkhardt">
-  <section style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
-    <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 3rem;">Projects</h1>
+
+<Layout title="Projects — Max Burkhardt" description="Collection of game development projects showcasing gameplay programming, level design, and AI implementation.">
+  <section class="container" style="padding: var(--spacing-xl) var(--spacing-md) var(--spacing-xxl);">
+    <div class="reveal">
+      <h1 style="margin-bottom: var(--spacing-xs);">Projects</h1>
+      <p class="text-muted text-lg" style="margin-bottom: var(--spacing-xl);">
+        A showcase of my work in game development
+      </p>
+    </div>
     
-    <div class="projects-grid">
-      {projects.map((p) => (
-        <a class="project-card" href={`/projects/${p.slug}/`}>
-          <div class="project-thumbnail">
-            <div class="thumbnail-placeholder">
-              <span>{p.data.title}</span>
+    <div class="grid-3">
+      {projects.map((project) => (
+        <a href={`/projects/${project.slug}/`} class="card reveal">
+          {project.data.cover ? (
+            <img 
+              src={project.data.cover} 
+              alt={project.data.title}
+              style="width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 6px; margin-bottom: var(--spacing-md);"
+            />
+          ) : (
+            <div style="width: 100%; aspect-ratio: 16/10; background: linear-gradient(135deg, var(--color-card-hover) 0%, var(--color-border) 100%); border-radius: 6px; margin-bottom: var(--spacing-md); display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border);">
+              <span style="color: var(--color-muted); opacity: 0.3; font-size: 1.5rem; font-weight: 600;">{project.data.title}</span>
             </div>
-            <!-- Replace placeholder with actual image when available -->
-            <!-- <img src="/images/projects/project-name.jpg" alt={p.data.title} /> -->
-          </div>
-          <div class="project-info">
-            <h3>{p.data.title}</h3>
-            {p.data.role && <p class="role">{p.data.role}</p>}
-          </div>
+          )}
+          
+          <h3 style="margin-bottom: 0.25rem;">{project.data.title}</h3>
+          
+          {project.data.role && (
+            <p class="text-muted" style="font-size: 0.875rem; margin-bottom: var(--spacing-sm);">
+              {project.data.role}
+            </p>
+          )}
+          
+          {project.data.pitch && (
+            <p style="font-size: 0.9375rem; margin-bottom: var(--spacing-sm); color: var(--color-text);">
+              {project.data.pitch}
+            </p>
+          )}
+          
+          {project.data.highlights && project.data.highlights.length > 0 && (
+            <div class="tags">
+              {project.data.highlights.slice(0, 3).map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )}
         </a>
       ))}
     </div>
   </section>
-
-  <style>
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 2rem;
-      padding-bottom: 4rem;
-    }
-
-    .project-card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      transition: opacity 0.2s ease;
-      cursor: pointer;
-    }
-
-    .project-card:hover {
-      opacity: 0.5;
-    }
-
-    .project-thumbnail {
-      width: 100%;
-      aspect-ratio: 16/10;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 0.75rem;
-      position: relative;
-    }
-
-    .thumbnail-placeholder {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, var(--card) 0%, var(--border) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .thumbnail-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(192, 132, 252, 0.05) 100%);
-    }
-
-    .thumbnail-placeholder span {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--muted);
-      opacity: 0.3;
-      z-index: 1;
-      position: relative;
-    }
-
-    .project-thumbnail img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .project-info h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      line-height: 1.3;
-    }
-
-    .role {
-      color: var(--muted);
-      font-size: 0.9375rem;
-      font-weight: 400;
-      margin: 0;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 768px) {
-      .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-    }
-
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
 </Layout>

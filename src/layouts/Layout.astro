@@ -1,257 +1,293 @@
 ---
-const { title = "Max Burkhardt — Portfolio" } = Astro.props;
+const { title = "Max Burkhardt — Portfolio", description = "Game Developer & Designer" } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    
+    <!-- Pico.css for baseline styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    
     <style>
+      /* CSS Variables for spacing and colors */
       :root {
-        --bg: #0a0a0a;
-        --card: #111111;
-        --card-hover: #1a1a1a;
-        --text: #e5e5e5;
-        --muted: #a0a0a0;
-        --border: #2a2a2a;
-        --link: #a855f7;
-        --link-hover: #c084fc;
+        --spacing-xs: 0.5rem;
+        --spacing-sm: 1rem;
+        --spacing-md: 1.5rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 3rem;
+        --spacing-xxl: 4rem;
+        
+        --color-primary: #111;
+        --color-text: #2d2a24;
+        --color-muted: #6b6b6b;
+        --color-border: #e5e5e5;
+        --color-bg: #fafafa;
+        --color-card: #ffffff;
+        --color-card-hover: #f5f5f5;
+        --color-accent: #2563eb;
+        --color-accent-hover: #1d4ed8;
       }
       
-      [data-theme="dark"] {
-        --bg: #0a0a0a;
-        --card: #111111;
-        --card-hover: #1a1a1a;
-        --text: #e5e5e5;
-        --muted: #a0a0a0;
-        --border: #2a2a2a;
-        --link: #a855f7;
-        --link-hover: #c084fc;
+      * {
+        box-sizing: border-box;
       }
-      
-      [data-theme="light"] {
-        --bg: #fafafa;
-        --card: #ffffff;
-        --card-hover: #f5f5f5;
-        --text: #2d2a24;
-        --muted: #6b6b6b;
-        --border: #e5e5e5;
-        --link: #9333ea;
-        --link-hover: #a855f7;
-      }
-      
-      * { box-sizing: border-box; margin: 0; padding: 0; }
       
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        line-height: 1.6;
-        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: var(--color-text);
+        background: var(--color-bg);
+        line-height: 1.7;
       }
       
+      /* Header / Nav */
       header {
         position: sticky;
         top: 0;
         z-index: 100;
-        background: var(--bg);
-        border-bottom: 1px solid var(--border);
+        background: rgba(250, 250, 250, 0.95);
         backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-      }
-      
-      [data-theme="dark"] header {
-        background: rgba(41, 41, 41, 0.8);
-      }
-      
-      [data-theme="light"] header {
-        background: rgba(250, 250, 250, 0.8);
+        border-bottom: 1px solid var(--color-border);
       }
       
       .header-container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 1rem 1.5rem;
+        padding: var(--spacing-sm) var(--spacing-md);
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
       
-      .logo {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--text);
+      .brand {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--color-primary);
         text-decoration: none;
-        display: flex;
-        flex-direction: column;
-        gap: 0.125rem;
-      }
-
-      .logo-name {
-        font-size: 1.25rem;
-        font-weight: 700;
-      }
-
-      .logo-title {
-        font-size: 0.8125rem;
-        color: var(--muted);
-        font-weight: 400;
+        transition: opacity 0.2s;
       }
       
-      .nav-content {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
+      .brand:hover {
+        opacity: 0.7;
       }
       
       nav {
         display: flex;
-        gap: 2rem;
+        gap: var(--spacing-lg);
         align-items: center;
       }
       
       nav a {
-        color: var(--muted);
+        color: var(--color-muted);
         text-decoration: none;
         font-size: 0.9375rem;
         font-weight: 500;
-        transition: color 0.2s ease;
+        transition: color 0.2s;
       }
       
       nav a:hover {
-        color: var(--text);
+        color: var(--color-primary);
       }
       
       nav a.active {
-        color: var(--link);
+        color: var(--color-primary);
+        font-weight: 600;
       }
       
-      nav a.external {
-        display: flex;
+      nav a[rel="noopener"] {
+        display: inline-flex;
         align-items: center;
         gap: 0.25rem;
       }
       
-      .theme-toggle {
-        background: none;
-        border: none;
-        color: var(--muted);
-        cursor: pointer;
-        padding: 0.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: color 0.2s ease;
-        border-radius: 4px;
-      }
-      
-      .theme-toggle:hover {
-        color: var(--text);
-        background: var(--card);
-      }
-      
-      .theme-icon {
-        width: 20px;
-        height: 20px;
-      }
-      
-      main {
-        max-width: 100%;
+      /* Container for content */
+      .container {
+        max-width: 1200px;
         margin: 0 auto;
-        min-height: calc(100vh - 200px);
+        padding: 0 var(--spacing-md);
       }
       
-      h1, h2, h3 { line-height: 1.2; }
-      h1 { font-size: 2.5rem; font-weight: 800; }
-      h2 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1.5rem; }
-      h3 { font-size: 1.25rem; font-weight: 600; }
+      .container-narrow {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+      }
       
-      .muted { color: var(--muted); }
+      /* Grid utility */
+      .grid {
+        display: grid;
+        gap: var(--spacing-lg);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
       
+      .grid-2 {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      }
+      
+      .grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+      
+      /* Card styling */
+      .card {
+        background: var(--color-card);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: var(--spacing-md);
+        transition: all 0.2s ease;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: var(--color-primary);
+      }
+      
+      /* Tag pills */
+      .tag {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: var(--color-card-hover);
+        border: 1px solid var(--color-border);
+        border-radius: 999px;
+        font-size: 0.8125rem;
+        color: var(--color-muted);
+        font-weight: 500;
+      }
+      
+      .tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      
+      /* Reveal animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* Typography */
+      h1, h2, h3, h4, h5, h6 {
+        line-height: 1.2;
+        font-weight: 700;
+        color: var(--color-primary);
+        margin-top: 0;
+      }
+      
+      h1 { font-size: 3rem; margin-bottom: var(--spacing-md); }
+      h2 { font-size: 2rem; margin-bottom: var(--spacing-md); }
+      h3 { font-size: 1.5rem; margin-bottom: var(--spacing-sm); }
+      
+      p {
+        margin-top: 0;
+        margin-bottom: var(--spacing-sm);
+      }
+      
+      .text-muted {
+        color: var(--color-muted);
+      }
+      
+      .text-lg {
+        font-size: 1.25rem;
+        line-height: 1.6;
+      }
+      
+      /* Buttons */
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: var(--color-primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.9375rem;
+        transition: all 0.2s;
+        border: 2px solid var(--color-primary);
+      }
+      
+      .btn:hover {
+        background: var(--color-accent);
+        border-color: var(--color-accent);
+        transform: translateY(-1px);
+      }
+      
+      .btn-secondary {
+        background: transparent;
+        color: var(--color-primary);
+      }
+      
+      .btn-secondary:hover {
+        background: var(--color-primary);
+        color: white;
+      }
+      
+      /* Responsive */
       @media (max-width: 768px) {
-        .header-container {
-          padding: 1rem;
-        }
-
+        h1 { font-size: 2rem; }
+        h2 { font-size: 1.5rem; }
+        
         nav {
-          gap: 1rem;
+          gap: var(--spacing-sm);
         }
-
+        
         nav a {
           font-size: 0.875rem;
         }
-
-        .logo-name {
-          font-size: 1.125rem;
-        }
-
-        .logo-title {
-          font-size: 0.75rem;
+        
+        .header-container {
+          padding: var(--spacing-sm);
         }
       }
     </style>
-    <script>
-      // Theme toggle functionality
-      function initTheme() {
-        const stored = localStorage.getItem('theme');
-        const theme = stored || 'dark';
-        document.documentElement.setAttribute('data-theme', theme);
-        updateThemeIcon(theme);
-      }
-      
-      function toggleTheme() {
-        const html = document.documentElement;
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        updateThemeIcon(newTheme);
-      }
-      
-      function updateThemeIcon(theme: string) {
-        const icon = document.querySelector('.theme-icon');
-        if (icon) {
-          icon.innerHTML = theme === 'dark' 
-            ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
-            : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-        }
-      }
-      
-      if (typeof window !== 'undefined') {
-        initTheme();
-        document.addEventListener('DOMContentLoaded', () => {
-          const toggle = document.querySelector('.theme-toggle');
-          if (toggle) {
-            toggle.addEventListener('click', toggleTheme);
-          }
-        });
-      }
-    </script>
+    
+    <slot name="head" />
   </head>
   <body>
     <header>
       <div class="header-container">
-        <a href="/" class="logo">
-          <span class="logo-name">Max Burkhardt</span>
-          <span class="logo-title">Game Developer</span>
-        </a>
-        <div class="nav-content">
-          <nav>
-            <a href="https://github.com/murkyperki" target="_blank" rel="noreferrer" class="external">
-              GitHub
-            </a>
-            <a href="/CV.pdf" target="_blank">Resume</a>
-          </nav>
-          <button class="theme-toggle" aria-label="Toggle theme">
-            <span class="theme-icon"></span>
-          </button>
-        </div>
+        <a href="/" class="brand">Max Burkhardt</a>
+        <nav>
+          <a href="/" class:list={{ active: currentPath === '/' }}>Home</a>
+          <a href="/projects" class:list={{ active: currentPath.startsWith('/projects') }}>Projects</a>
+          <a href="/about" class:list={{ active: currentPath === '/about' }}>About</a>
+          <a href="/CV.pdf" target="_blank">CV</a>
+          <a href="https://github.com/murkyperki" target="_blank" rel="noopener noreferrer">
+            GitHub ↗
+          </a>
+        </nav>
       </div>
     </header>
-    <main><slot /></main>
+    
+    <main>
+      <slot />
+    </main>
+    
+    <script>
+      import { initReveal } from '../scripts/reveal';
+      initReveal();
+    </script>
   </body>
 </html>

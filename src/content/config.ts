@@ -6,6 +6,7 @@ const projects = defineCollection({
     title: z.string(),
     role: z.string().optional(),
     pitch: z.string().optional(),
+    cover: z.string().optional(), // Cover image path
     highlights: z.array(z.string()).optional(),
     // For actual media files (images, gifs, videos)
     gallery: z.array(z.union([
