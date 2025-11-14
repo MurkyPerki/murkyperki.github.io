@@ -43,10 +43,23 @@ const projects: CollectionEntry<"projects">[] = await getCollection("projects");
       {projects.map((p) => (
         <a class="project-row" href={`/projects/${p.slug}/`}>
           <div class="project-media">
-            <div class="project-thumb">
-              <span>{p.data.title}</span>
-            </div>
+            {p.data.thumbnailVideo ? (
+              <video
+                src={p.data.thumbnailVideo.src}
+                poster={p.data.thumbnailVideo.poster}
+                class="project-media-video"
+                autoplay
+                muted
+                loop
+                playsinline
+              />
+            ) : (
+              <div class="project-thumb">
+                <span>{p.data.title}</span>
+              </div>
+            )}
           </div>
+
           <div class="project-body">
             <div class="project-heading">
               <h3>{p.data.title}</h3>
@@ -304,6 +317,13 @@ const projects: CollectionEntry<"projects">[] = await getCollection("projects");
       position: relative;
       background: #000;
       overflow: hidden;
+    }
+
+	.project-media-video {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 16 / 9;
     }
 
     .project-thumb {
