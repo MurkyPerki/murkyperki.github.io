@@ -4,21 +4,34 @@ hasGalleryPlaceholder: true
 role: AI & Board Logic
 pitch: Grid pathfinding, wall placement, shortest-path constraints.
 highlights:
-  - A* pathfinding
-  - State machine
+  - Turn-based online board game (C# client + Node.js server)
+  - A* pathfinding to enforce shortest path & “no blocking” rules
+  - Clean board representation and turn/state management
 links:
   - { label: "GitHub Repo", href: "https://github.com/murkyperki/stokrun" }
 media:
   - { label: "Screenshots", href: "https://imgur.com/a/your-album" }
 lessons:
-  - Heuristic trade-offs vs brute force
+  - How to model a board game so rules stay clear in code
+  - Keeping client and server logic in sync in a networked game
 ---
 
-Stokrun is a Quoridor-inspired board game where players race to opposite sides while strategically placing walls to block opponents.
+Stokkie Run is a Quoridor-inspired board game where two players race to the opposite side of a grid while placing walls to slow each other down.  
+You can’t just block the board completely: every move and wall placement must still leave at least one valid path for both players.
 
-## Technical Implementation
+The game runs as a C# client (MonoGame) that connects to a Node.js server, which keeps the real game state and validates the rules.
 
-I implemented the AI using A* pathfinding with custom heuristics to evaluate both movement and wall placement strategies.
+
+## What I Worked On in More Detail
+
+- Turn and AP logic in C# (MonoGame).
+- Updating the UI/state so players can see:
+  - how many AP they have left,
+  - when their turn is over,
+  - when control switches to the other player.
+- Integrating client actions with the server:
+  - sending moves and wall placements,
+  - reacting to accepted/rejected actions from the server.
 
 ## Challenges
 
