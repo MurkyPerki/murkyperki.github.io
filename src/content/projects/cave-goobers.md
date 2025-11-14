@@ -28,23 +28,23 @@ lessons:
   - Writing my own collision and state logic helped me understand core platformer mechanics.
 ---
 
-Cave Goobers is a prototype I built in **JavaScript/p5.js** to practice making a full gameplay loop from scratch.  
-You explore a small cave, collect **5 Goobers**, and use them to fight a simple boss.
+Cave Goobers is a prototype I built in JavaScript/p5.js to practice making a full gameplay loop from scratch.  
+You explore a small cave, collect 5 Goobers, and use them to fight a simple boss.
 
 ## Gameplay
 
 - Explore the cave and gather 5 Goobers.
 - The boss room only opens once you have all of them.
-- In the fight, the boss **turns red** before doing a slam attack.
-- You deal damage by placing Goobers into the **slots** around the arena.
+- In the fight, the boss turns red before doing a slam attack.
+- You deal damage by placing Goobers into the slots around the arena.
 - Using all 5 Goobers defeats the boss.
 
 ## What I Built
 
-- Custom **collision system** (AABB checks, grounding, hazards).
+- Custom collision system (AABB checks, grounding, hazards).
 - Collaberated on Player movement.
 - Goober collection, and the boss gate logic.
-- Boss **state machine**: idle → telegraph → slam.
+- Boss state machine: idle → telegraph → slam.
 - Slot interaction that consumes Goobers and applies damage.
 
 ## Improvements I’d Add Later
