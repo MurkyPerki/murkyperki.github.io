@@ -44,7 +44,7 @@ You explore a small cave, collect 5 Goobers, and use them to fight a simple boss
 - Custom collision system (AABB checks, grounding, hazards).
 - Collaberated on Player movement.
 - Goober collection, and the boss gate logic.
-- Boss state machine: idle → telegraph → slam.
+- Boss state machine: idle, telegraph,  slam.
 - Slot interaction that consumes Goobers and applies damage.
 
 ## Improvements I’d Add Later
