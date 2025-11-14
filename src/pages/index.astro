@@ -1,17 +1,141 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import projects from "../projects.data.js";
-const featured = projects.slice(0,3);
 ---
-<Layout title="Max Burkhardt — Game Dev Portfolio">
-  <h2>Featured</h2>
-  <div class="grid">
-    {featured.map(p => (
-      <a class="card" href={`/projects/${p.slug}/`}>
-        <h3 style="margin:.2rem 0;">{p.title}</h3>
-        <p class="muted" style="margin:.2rem 0;">{p.pitch}</p>
-        <small class="muted">{p.role}</small>
-      </a>
-    ))}
-  </div>
+<Layout title="Max Burkhardt — Portfolio">
+  <section style="max-width: 720px; margin: 4rem auto 0;">
+    <h1 style="background: linear-gradient(135deg, #a855f7 0%, #c084fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+      Max Burkhardt
+    </h1>
+    <p style="font-size: 1.5rem; color: var(--muted); margin-top: 1rem; font-weight: 500;">
+      Game Developer & Designer
+    </p>
+    
+    <p style="margin-top: 2rem; font-size: 1.125rem; color: var(--text); line-height: 1.7;">
+      Welcome! I'm a game dev student at HvA with a passion for 
+      gameplay feel, level design, and clean code. Explore my work below.
+    </p>
+
+    <div style="margin-top: 4rem;">
+      <h2>Explore</h2>
+      <div class="explore-grid">
+        <a class="square-btn" href="/projects">
+          <span class="btn-icon">🎮</span>
+          <h3>Projects</h3>
+          <p>View portfolio</p>
+        </a>
+        <a class="square-btn" href="/about">
+          <span class="btn-icon">👨‍💻</span>
+          <h3>About Me</h3>
+          <p>My story</p>
+        </a>
+        <a class="square-btn" href="https://github.com/murkyperki" target="_blank" rel="noreferrer">
+          <span class="btn-icon">💻</span>
+          <h3>GitHub</h3>
+          <p>Code repos</p>
+        </a>
+        <a class="square-btn" href="/CV.pdf" target="_blank">
+          <span class="btn-icon">📄</span>
+          <h3>Resume</h3>
+          <p>Download CV</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .explore-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .square-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      aspect-ratio: 1;
+      padding: 2rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .square-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--link), var(--link-hover));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .square-btn:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: var(--link);
+      background: var(--card-hover);
+    }
+
+    .square-btn:hover::before {
+      opacity: 0.08;
+    }
+
+    [data-theme="dark"] .square-btn {
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    }
+
+    [data-theme="dark"] .square-btn:hover {
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3), 0 10px 10px -5px rgba(0,0,0,0.2);
+    }
+
+    [data-theme="light"] .square-btn {
+      box-shadow: 0 2px 4px rgba(45, 42, 36, 0.08), 0 4px 8px rgba(45, 42, 36, 0.06);
+    }
+
+    [data-theme="light"] .square-btn:hover {
+      box-shadow: 0 12px 24px -6px rgba(45, 42, 36, 0.15), 0 8px 16px -4px rgba(45, 42, 36, 0.1);
+    }
+
+    .btn-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s ease;
+    }
+
+    .square-btn:hover .btn-icon {
+      transform: scale(1.1);
+    }
+
+    .square-btn h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .square-btn p {
+      color: var(--muted);
+      font-size: 0.9375rem;
+      position: relative;
+      z-index: 1;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .explore-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </Layout>
