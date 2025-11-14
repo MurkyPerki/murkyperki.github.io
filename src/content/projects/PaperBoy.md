@@ -22,17 +22,17 @@ lessons:
   - Implementing the line and collision logic in Unity helped me understand 2D physics and triggers better.
 ---
 
-Paperboy is a personal project I made in **Unity** to practice C# and building a full game loop.
+Paperboy is a personal project I made in Unity to practice C# and building a full game loop.
 
 ## Gameplay
 
 - You control the boy inside the paper world.
-- Goal: **collect 3 balls**. If you get all 3, you win.
-- If **any chasing character touches you**, you lose.
+- The goal: collect 3 balls. If you get all 3, you win.
+- If any chasing character touches you, you lose.
 - You have two types of lines:
-  - **Temporary mouse line**  draw anywhere with the mouse; it appears, blocks movement for a moment, then fades after a few seconds.
-  - **Permanent line under the player**  drawn with **space**, leaving a solid line behind you.
-- One special enemy can **erase your lines**, forcing you to keep moving and think about where you draw.
+  - Temporary mouse line  draw anywhere with the mouse; it appears, blocks movement for a moment, then fades after a few seconds.
+  - Permanent line under the player  drawn with space, leaving a solid line behind you.
+- One special enemy can erase your lines, forcing you to keep moving and think about where you draw.
 
 ## What I Built
 
