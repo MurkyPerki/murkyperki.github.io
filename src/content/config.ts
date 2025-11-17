@@ -58,4 +58,5 @@ const projects = defineCollection({
   }),
 });
 
+
 export const collections = { projects };

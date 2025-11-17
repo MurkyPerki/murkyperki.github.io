@@ -1,11 +1,11 @@
 ---
-title: Stokrun — Quoridor-like
+title: Stokrun
 hasGalleryPlaceholder: true
 role: AI & Board Logic
 pitch: Grid pathfinding, wall placement, shortest-path constraints.
 highlights:
-  - Turn-based online board game (C# client + Node.js server)
-  - A* pathfinding to enforce shortest path & “no blocking” rules
+  - Turn based online board game (C# client + Node.js server)
+  - pathfinding to enforce shortest path & “no blocking” rules
   - Clean board representation and turn/state management
 links:
   - { label: "GitHub Repo", href: "https://github.com/murkyperki/stokrun" }

@@ -17,10 +17,6 @@ thumbnailVideo:
   src: "/FacilityMap/FacilityMap.mp4"
   # optional poster frame if you have a PNG/JPG in /public/FacilityMap
   # poster: "/FacilityMap/FacilityMap-thumb.png"
-links:
-  - { label: "Live Demo", href: "https://your-demo-url.com" }
-media:
-  - { label: "Trailer", href: "https://youtube.com/..." }
 ---
 
 The Facility Map is a level design project built to explore how players move through a space and understand where to go.  
@@ -31,9 +27,9 @@ From there, I built a full greybox using Unity’s ProBuilder package. This let 
 Right now, the project is in the iteration and polish phase.  
 I’m working on:
 
-- **adding** textures to test mood and readability  
-- **creating** clean, reusable prefabs for walls, doors, and props  
-- **building** interactive elements like animated doors and map components  
+- adding; textures to test mood and readability  
+- creating; clean, reusable prefabs for walls, doors, and props  
+- building; interactive elements like animated doors and map components  
 
 The goal is to create a facility layout that feels intuitive to explore, supports clear navigation, and can be used as a foundation for future gameplay systems.
 

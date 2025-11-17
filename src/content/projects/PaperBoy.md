@@ -4,7 +4,7 @@ role: Gameplay & Systems
 pitch: 2D Unity prototype where a boy is trapped in his own drawing and uses drawn lines to survive and collect 3 balls.
 hasGalleryPlaceholder: true
 highlights:
-  - Two line types; temporary mouse-drawn and permanent lines under the player
+  - Two line types; temporary mouse drawn and permanent lines under the player
   - Enemies that chase the player, including one that erases lines
   - Win by collecting 3 balls; lose on contact with any chaser
 gallery:

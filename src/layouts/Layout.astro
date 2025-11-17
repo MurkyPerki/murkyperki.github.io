@@ -242,6 +242,12 @@ const currentPath = Astro.url.pathname;
     </style>
 
     <script>
+      declare global {
+        interface Window {
+          __toggleTheme: () => void;
+        }
+      }
+
       (() => {
         const stored = window.localStorage.getItem("theme");
         const prefersDark =
@@ -283,8 +289,25 @@ const currentPath = Astro.url.pathname;
 
         <div class="nav-content">
           <nav>
-            <a href="/" class={currentPath === "/" ? "active" : ""}>Projects</a>
+            <a href="/" class={currentPath === "/" ? "active" : ""}>
+              Projects
+            </a>
+
+            <a
+              href="/design"
+              class={currentPath.startsWith("/design") ? "active" : ""}
+            >
+              Concepts
+            </a>
+
+            <a
+              href="/snippets"
+              class={currentPath.startsWith("/snippets") ? "active" : ""}
+            >
+              Snippets
+            </a>
           </nav>
+
 
           <a
             href="https://github.com/murkyperki"
