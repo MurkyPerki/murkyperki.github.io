@@ -38,8 +38,8 @@ Paperboy is a personal project I made in Unity to practice C# and building a ful
 
 - Player movement and basic camera setup in Unity.
 - Line-drawing system:
-  - Mouse-based temporary lines with a limited lifetime.
-  - Space-based permanent trail line under the character.
+  - Mouse based temporary lines with a limited lifetime.
+  - World based permanent trail line under the character.
 - Collision and triggers between:
   - Player, balls (collect to increase counter and check win).
   - Enemies and lines (blocking / erasing behaviour).
