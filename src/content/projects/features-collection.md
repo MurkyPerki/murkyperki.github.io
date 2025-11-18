@@ -30,7 +30,7 @@ thumbnailVideo:
   # poster: "/Features-Collection/features-thumb.png"
 
 lessons:
-  - Isolating one mechanic at a time makes it easier to iterate on feel.
+  - Isolating one mechanic at a time makes it easier to iterate on the feel.
   - Small throwaway prototypes are a good way to test ideas before committing to full projects.
 ---
 
@@ -39,11 +39,11 @@ They’re not full games on their own, but they show how I iterate on mechanics 
 
 ## Enemy Group Behaviour
 
-The enemy group clips show how I iterated on **group movement and collision**:
+The enemy group clips show how I iterated on group movement and collision:
 
-- **FirstGroup** basic movement without enemy on enemy collision, just groups drifting together.
-- **NotWorkingGroups** a broken collision attempt that made enemies move in a stiff, symmetrical way.
-- **WorkingGroups** a refined version where enemies keep spacing, slide around each other, and feel more natural.
+- FirstGroup; basic movement without enemy on enemy collision, just groups drifting together.
+- NotWorkingGroups; a broken collision attempt that made enemies move in a stiff, symmetrical way.
+- WorkingGroups; a refined version where enemies keep spacing, slide around each other, and feel more natural.
 
 ## Slime Mass Prototype
 
