@@ -35,14 +35,17 @@ The game runs as a C# client (MonoGame) that connects to a Node.js server, which
 ## Challenges
 
 - **Balancing the AP system**  
-  At first the AP costs either made turns too short and boring (always the same move), or too long and slow to watch. I had to tweak costs and limits a few times so players had real choices each turn without dragging the pace down.
+  The AP cost first made the game to boring, because it was just used for the same moves so i had to adjust the costs and 
+  moveset so that it would increase the pace of the game.
 
 - **Keeping client turns and server state in sync**  
-  Sometimes the client thought it was still your turn while the server had already switched players, especially when a move or wall placement was rejected. Fixing this forced me to be strict about where the “real” game state lives and to always trust the server.
+  Sometimes the client still thought it was your turn while the server had already switched player turn, espescially when doing
+  "illegal' moves. fixig this made me be more strict about where the real game state live.
 
 - **Handling illegal moves clearly**  
-  Early on, illegal walls or moves just “did nothing”, which felt like a bug. I had to improve how the client reacts to rejections from the server so it’s clear to the player that the move was invalid, not that the game broke.
+  Early om, illegal walls or moves didnt do very much, which felt like it didnt belong, so we had to to make it clear to the player that it was an illegal move and the game didnt just broke.
 
 - **Integrating the leaderboard into an existing server**  
-  The server already handled connections and game state, so adding the leaderboard without breaking anything was tricky. I had to be careful about when results are stored, what data gets saved, and how it stays in sync with the end of a match.
+  The server already handled the connections and game states, so when i was implementing the leaderboard it was sometimes tricky
+  I had to be careful about when the results are stored and what data gets stored and make it stay in sync.
 

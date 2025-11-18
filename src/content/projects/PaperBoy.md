@@ -5,7 +5,7 @@ pitch: 2D Unity prototype where a boy is trapped in his own drawing and uses dra
 hasGalleryPlaceholder: true
 highlights:
   - Two line types; temporary mouse drawn and permanent lines under the player
-  - Enemies that chase the player, including one that erases lines
+  - Enemies that chase the player, plus one that erases lines
   - Win by collecting 3 balls; lose on contact with any chaser
 gallery:
   - src: "/PaperBoy/PaperBoy-Gameplay.mp4"
@@ -18,7 +18,7 @@ thumbnailVideo:
   # poster: "/PaperBoy/thumbnail.png"
 lessons:
   - Simple drawing mechanics become interesting when enemies react to them.
-  - Mixing collection (3 balls) with avoidance (chasing characters) creates tension in a small arena.
+  - Mixing collection (3 balls) with avoiding (chasing characters) creates tension in a small arena.
   - Implementing the line and collision logic in Unity helped me understand 2D physics and triggers better.
 ---
 

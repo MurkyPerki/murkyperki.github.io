@@ -230,6 +230,19 @@ const currentPath = Astro.url.pathname;
         transform: translateY(-1px);
       }
 
+      .prose {
+        max-width: 900px;      /* or whatever width you want */
+        margin: 0 auto;
+        padding: 2.5rem 2rem 3.5rem;
+      }
+
+      /* Code blocks inside markdown */
+      .prose pre {
+        max-width: 100%;       /* follow prose width */
+        overflow-x: auto;
+        border-radius: 6px;
+      }
+
       @media (max-width: 768px) {
         .header-container {
           padding-inline: 1.25rem;
@@ -329,8 +342,10 @@ const currentPath = Astro.url.pathname;
       </div>
     </header>
 
-    <main>
-      <slot />
-    </main>
+<main>
+  <div class="prose">
+    <slot />
+  </div>
+</main>
   </body>
 </html>

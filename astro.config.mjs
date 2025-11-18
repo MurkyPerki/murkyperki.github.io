@@ -7,7 +7,7 @@ export default defineConfig({
   outDir: 'dist',
   markdown: {
     shikiConfig: {
-      theme: "nord",     
+      theme: "dark-plus",     
       wrap: true,
     },
   },
