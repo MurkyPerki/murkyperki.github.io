@@ -40,10 +40,10 @@ The game runs as a C# client (MonoGame) that connects to a Node.js server, which
 
 - **Keeping client turns and server state in sync**  
   Sometimes the client still thought it was your turn while the server had already switched player turn, espescially when doing
-  "illegal' moves. fixig this made me be more strict about where the real game state live.
+  "illegal' moves. fixing this made me be more strict about where the real game state live.
 
 - **Handling illegal moves clearly**  
-  Early om, illegal walls or moves didnt do very much, which felt like it didnt belong, so we had to to make it clear to the player that it was an illegal move and the game didnt just broke.
+  Early om, illegal walls or moves didnt do very much, which felt like it didnt belong, so i had to to make it clear to the player that it was an illegal move and the game didnt just break.
 
 - **Integrating the leaderboard into an existing server**  
   The server already handled the connections and game states, so when i was implementing the leaderboard it was sometimes tricky
