@@ -12,8 +12,6 @@ Concept pitches, drawings, and references I use to explore ideas and player expe
 The idea: a slime boss whose health is its mass. As it loses mass, it becomes faster,
 more aggressive, and changes its attack patterns.
 
-![Slime boss sketches](/design/slime-boss-sketch.png)
-
 Early sketches focus on clearly showing mass changes to the player so they can
 understand when the boss is entering a new phase.
 
