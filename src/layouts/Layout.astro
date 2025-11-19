@@ -26,7 +26,7 @@ const currentPath = Astro.url.pathname;
       }
 
       [data-theme="dark"] {
-        --bg: #000000;
+        --bg: #1b1b1b;
         --card: #2b2d33;
         --card-hover: #181d2b;
         --text: #f7fafc;
@@ -67,6 +67,24 @@ const currentPath = Astro.url.pathname;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+      }
+
+
+      .bg-texture {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+
+        background-image: url("/noise4.jpg");
+        background-repeat: repeat;
+        background-size: 2800px 2800px;
+        opacity: 0.02; /* control how visible the texture is */
+      }
+
+      
+      [data-theme="light"] .bg-texture {
+        opacity: 0.04; /* even softer in light mode */
       }
 
       main {
@@ -293,6 +311,7 @@ const currentPath = Astro.url.pathname;
   </head>
 
   <body>
+    <div class="bg-texture" aria-hidden="true"></div>
     <header>
       <div class="header-container">
         <a href="/" class="logo">
