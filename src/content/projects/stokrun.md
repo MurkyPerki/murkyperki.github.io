@@ -1,12 +1,25 @@
 ---
 title: Stokrun
-hasGalleryPlaceholder: true
+hasGalleryPlaceholder: false
 role: AI & Board Logic
 pitch: Grid pathfinding, wall placement, shortest-path constraints.
 highlights:
   - Turn based online board game (C# client + Node.js server)
   - pathfinding to enforce shortest path & “no blocking” rules
   - Clean board representation and turn/state management
+gallery:
+  - src: "/stokrun/stokrunArt.png"
+    type: "image"
+    alt: "Stokrun artwork"
+    caption: "Game artwork."
+  - src: "/stokrun/bluewiz_correct.png"
+    type: "image"
+    alt: "Blue wizard character"
+    caption: "Blue wizard."
+  - src: "/stokrun/redwiz_correct.png"
+    type: "image"
+    alt: "Red wizard character"
+    caption: "Red wizard."
 links:
   - { label: "GitHub Repo", href: "https://github.com/murkyperki/stokrun" }
 lessons:
