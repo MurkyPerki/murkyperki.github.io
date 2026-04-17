@@ -85,7 +85,8 @@ void AddPoint(Vector2 point) {
         linePoints.Add(point);
         lineRenderer.positionCount = linePoints.Count;
         lineRenderer.SetPositions(linePoints.ToArray());
-        edgeCollider.points = linePoints.ToArray();  
+        edgeCollider.points = linePoints.ToArray();
+    }
 }
 void UpdateLineSegments() {
     // Fade out and remove old line segments over after timer passes
@@ -107,7 +108,7 @@ void UpdateLineSegments() {
 
 ### Explanation:
 
-this code from PaperBoy make the player able to temporary lines with the mouse on the screen.
+This code from PaperBoy lets the player draw temporary lines with the mouse on the screen.
 the lines act like barriers to the NPC. when the player presses the mouse button `StartDrawing()` creates a new line 
 object which uses a `LineRenderer` for visuals and for the `EdgeCollider` for the collision physics. As the player drags the mouse while pressing `AddPoint()` is called to add new points to the line and updating the renderers vertices and collider.
 
@@ -164,13 +165,13 @@ void OnCollisionEnter2D(Collision2D coll) {
 
 ### Explanation
 
-In PaperBoy, The ball NPC have a fleeing AI state based behaviour. ive difined three different states
-wandering, running from the player, and avoiding the walls so they dont get stuck.
-In wandering the npc walks in a random direction and changing its direction once every so often.
-if the player comes withing the radius of the ball NPC, the NPC switches to the RunningFromPlayer, It then
-calculates a new vector that points in the oppistite direction of the player.
-if it collides with a wall, the `OnCollisionEnter2D` gets triggerd and then switches to the AvoidingWall state.
-it will then move away from the wall for a bit and then switch back to wandering state.
+In PaperBoy, the ball NPCs have a fleeing AI based on states. I defined three states:
+wandering, running from the player, and avoiding walls so they don't get stuck.
+In wandering, the NPC walks in a random direction and changes direction every so often.
+If the player comes within the radius of the ball NPC, it switches to RunningFromPlayer and
+calculates a vector pointing in the opposite direction of the player.
+If it collides with a wall, `OnCollisionEnter2D` triggers and switches to the AvoidingWall state.
+It then moves away from the wall for a moment before returning to wandering.
 
 this finite statemachine makes the NPC behaviour more believable but more importantly more challenging. It walks around 
 on its own and flees when threatend by the player, also it avoids getting stuck on walls. (add state diagram)

@@ -3,7 +3,7 @@ const { title = "Max Burkhardt — Portfolio" } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -11,52 +11,49 @@ const currentPath = Astro.url.pathname;
 
     <style>
       :root {
-        /* base palette (dark by default) */
-        --bg: #05070b;
-        --card: #111520;
-        --card-hover: #181d2b;
-        --text: #f7fafc;
-        --muted: #9ca3af;
-        --border: #272b3a;
-        --link: #f97373;
-        --link-hover: #fb8a8a;
-
-        --accent: #f97373;
-        --accent-soft: rgba(249, 115, 115, 0.12);
+        --bg: #f0ece4;
+        --card: #ffffff;
+        --card-hover: #fff7cc;
+        --text: #000000;
+        --muted: #444444;
+        --border: #000000;
+        --link: #000000;
+        --link-hover: #000000;
+        --accent: #ffde00;
+        --accent-soft: rgba(255, 222, 0, 0.3);
       }
 
       [data-theme="dark"] {
-        --bg: #1b1b1b;
-        --card: #2b2d33;
-        --card-hover: #181d2b;
-        --text: #f7fafc;
-        --muted: #9ca3af;
-        --border: #272b3a;
-        --link: #f97373;
-        --link-hover: #fb8a8a;
-
-        --accent: #f97373;
-        --accent-soft: rgba(82, 76, 76, 0.12);
+        --bg: #111111;
+        --card: #1c1c1c;
+        --card-hover: #2a2a2a;
+        --text: #f0ece4;
+        --muted: #999999;
+        --border: #f0ece4;
+        --link: #ffde00;
+        --link-hover: #ffe940;
+        --accent: #ffde00;
+        --accent-soft: rgba(255, 222, 0, 0.15);
       }
 
       [data-theme="light"] {
-        --bg: #e9eeee;
+        --bg: #f0ece4;
         --card: #ffffff;
-        --card-hover: #f1f2fa;
-        --text: #111827;
-        --muted: #6b7280;
-        --border: #e5e7eb;
-        --link: #ef4444;
-        --link-hover: #dc2626;
-
-        --accent: #ef4444;
-        --accent-soft: rgba(239, 68, 68, 0.08);
+        --card-hover: #fff7cc;
+        --text: #000000;
+        --muted: #444444;
+        --border: #000000;
+        --link: #000000;
+        --link-hover: #000000;
+        --accent: #ffde00;
+        --accent-soft: rgba(255, 222, 0, 0.3);
       }
 
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
+        border-radius: 0 !important;
       }
 
       body {
@@ -69,6 +66,11 @@ const currentPath = Astro.url.pathname;
         flex-direction: column;
       }
 
+      h1, h2, h3, h4 {
+        font-weight: 900;
+        color: var(--text);
+      }
+
 
       .bg-texture {
         position: fixed;
@@ -76,15 +78,10 @@ const currentPath = Astro.url.pathname;
         pointer-events: none;
         z-index: -1;
 
-        background-image: url("/noise4.jpg");
+        background-image: url("/paper-texture.png");
         background-repeat: repeat;
-        background-size: 2800px 2800px;
-        opacity: 0.02; /* control how visible the texture is */
-      }
-
-      
-      [data-theme="light"] .bg-texture {
-        opacity: 0.04; /* even softer in light mode */
+        background-size: 512px 512px;
+        opacity: 0.04;
       }
 
       main {
@@ -98,6 +95,10 @@ const currentPath = Astro.url.pathname;
         color: var(--link);
       }
 
+      a:visited {
+        color: var(--link);
+      }
+
       a:hover {
         color: var(--link-hover);
       }
@@ -107,17 +108,7 @@ const currentPath = Astro.url.pathname;
         top: 0;
         z-index: 100;
         background: var(--bg);
-        border-bottom: 1px solid var(--border);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-      }
-
-      [data-theme="dark"] header {
-        background: rgba(5, 7, 11, 0.9);
-      }
-
-      [data-theme="light"] header {
-        background: rgba(244, 245, 251, 0.9);
+        border-bottom: 2px solid var(--border);
       }
 
       .header-container {
@@ -131,8 +122,7 @@ const currentPath = Astro.url.pathname;
       }
 
       .logo {
-        font-size: 1.1rem;
-        font-weight: 700;
+        font-weight: 900;
         color: var(--text);
         text-decoration: none;
         display: flex;
@@ -140,16 +130,24 @@ const currentPath = Astro.url.pathname;
         gap: 0.15rem;
       }
 
+      .logo:hover {
+        color: var(--text);
+        text-decoration: none;
+      }
+
       .logo-name {
         font-size: 1.1rem;
-        font-weight: 700;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
 
       .logo-title {
-        font-size: 0.78rem;
+        font-size: 0.7rem;
         color: var(--muted);
         text-transform: uppercase;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.18em;
+        font-weight: 700;
       }
 
       .nav-content {
@@ -160,105 +158,123 @@ const currentPath = Astro.url.pathname;
 
       nav {
         display: flex;
-        gap: 0.75rem;
+        gap: 0.4rem;
         margin-right: 0.5rem;
       }
 
       nav a {
-        font-size: 0.85rem;
-        padding: 0.35rem 0.7rem;
-        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        padding: 0.3rem 0.65rem;
         text-decoration: none;
-        color: var(--muted);
-        border: 1px solid transparent;
-        transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+        color: var(--text);
+        border: 2px solid transparent;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        transition: background 0.08s ease, border-color 0.08s ease;
       }
 
       nav a:hover {
-        background: var(--card-hover);
-        color: var(--text);
+        color: #000;
+        background: var(--accent);
+        border-color: var(--border);
+        text-decoration: none;
       }
 
       nav a.active {
-        color: var(--text);
-        border-color: var(--border);
-        background: var(--card-hover);
+        color: #000;
+        background: var(--accent);
+        border: 2px solid var(--border);
+        box-shadow: 2px 2px 0 var(--border);
       }
 
       .primary-button,
       .icon-button {
-        border-radius: 999px;
         padding: 0.4rem 1.1rem;
-        font-size: 0.8rem;
-        font-weight: 600;
+        font-size: 0.78rem;
+        font-weight: 700;
         text-decoration: none;
-        border: 1px solid var(--border);
+        border: 2px solid var(--border);
         display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 0.35rem;
-        transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
         cursor: pointer;
         white-space: nowrap;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        box-shadow: 3px 3px 0 var(--border);
+        transition: box-shadow 0.08s ease, transform 0.08s ease;
       }
 
       .primary-button {
         background: var(--accent);
-        border-color: var(--accent);
-        color: #111827;
-        box-shadow: 0 6px 14px var(--accent-soft);
+        color: #000;
+      }
+
+      .primary-button:visited {
+        color: #000;
       }
 
       .primary-button:hover {
-        background: var(--link-hover);
-        border-color: var(--link-hover);
-        transform: translateY(-1px);
-        box-shadow: 0 8px 18px var(--accent-soft);
+        background: var(--accent);
+        color: #000;
+        box-shadow: 1px 1px 0 var(--border);
+        transform: translate(2px, 2px);
+        text-decoration: none;
       }
 
       .icon-button {
         background: var(--card);
-        color: var(--muted);
+        color: var(--text);
+      }
+
+      .icon-button:visited {
+        color: var(--text);
       }
 
       .icon-button:hover {
-        background: var(--card-hover);
-        color: var(--text);
-        transform: translateY(-1px);
+        background: var(--accent);
+        color: #000;
+        box-shadow: 1px 1px 0 var(--border);
+        transform: translate(2px, 2px);
+        text-decoration: none;
       }
 
       .theme-toggle {
         width: 2.1rem;
         height: 2.1rem;
-        border-radius: 999px;
-        border: 1px solid var(--border);
+        border: 2px solid var(--border);
         background: var(--card);
         display: inline-flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        color: var(--muted);
+        color: var(--text);
         font-size: 0.95rem;
-        transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+        box-shadow: 3px 3px 0 var(--border);
+        transition: box-shadow 0.08s ease, transform 0.08s ease;
       }
 
       .theme-toggle:hover {
-        background: var(--card-hover);
-        color: var(--text);
-        transform: translateY(-1px);
+        background: var(--accent);
+        color: #000;
+        box-shadow: 1px 1px 0 var(--border);
+        transform: translate(2px, 2px);
       }
 
       .prose {
-        max-width: 900px;      /* or whatever width you want */
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 2.5rem 2rem 3.5rem;
+        padding: 0 2rem 3.5rem;
       }
 
       /* Code blocks inside markdown */
       .prose pre {
-        max-width: 100%;       /* follow prose width */
+        max-width: 100%;
         overflow-x: auto;
-        border-radius: 6px;
+        border: 2px solid var(--border);
+        box-shadow: 4px 4px 0 var(--border);
       }
 
       @media (max-width: 768px) {
@@ -350,7 +366,7 @@ const currentPath = Astro.url.pathname;
             GitHub
           </a>
 
-          <a href="/CV.pdf" target="_blank" class="primary-button">
+          <a href="/CV_v14.pdf" target="_blank" class="primary-button">
             Resume ↓
           </a>
 
