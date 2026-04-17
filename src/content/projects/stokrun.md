@@ -2,7 +2,7 @@
 title: Stokrun
 hasGalleryPlaceholder: false
 role: AI & Board Logic
-pitch: Grid pathfinding, wall placement, shortest-path constraints.
+pitch: "A networked Quoridor-style board game in C# + Node.js where the server enforces that wall placement can never fully block either player's shortest path."
 highlights:
   - Turn based online board game (C# client + Node.js server)
   - pathfinding to enforce shortest path & “no blocking” rules
@@ -48,17 +48,14 @@ The game runs as a C# client (MonoGame) that connects to a Node.js server, which
 ## Challenges
 
 - **Balancing the AP system**  
-  The AP cost first made the game to boring, because it was just used for the same moves so i had to adjust the costs and 
-  moveset so that it would increase the pace of the game.
+  The AP cost first made the game too boring, because it was just used for the same moves, so I had to adjust the costs and moveset to increase the pace of the game.
 
 - **Keeping client turns and server state in sync**  
-  Sometimes the client still thought it was your turn while the server had already switched player turn, espescially when doing
-  "illegal' moves. fixing this made me be more strict about where the real game state live.
+  Sometimes the client still thought it was your turn while the server had already switched player turn, especially when doing "illegal" moves. Fixing this made me be more strict about where the real game state lives.
 
 - **Handling illegal moves clearly**  
-  Early om, illegal walls or moves didnt do very much, which felt like it didnt belong, so i had to to make it clear to the player that it was an illegal move and the game didnt just break.
+  Early on, illegal walls or moves didn't give much feedback, which felt wrong, so I had to make it clear to the player that a move was illegal and that the game hadn't just broken.
 
 - **Integrating the leaderboard into an existing server**  
-  The server already handled the connections and game states, so when i was implementing the leaderboard it was sometimes tricky
-  I had to be careful about when the results are stored and what data gets stored and make it stay in sync.
+  The server already handled connections and game states, so when I was implementing the leaderboard it was sometimes tricky. I had to be careful about when results are stored, what data gets stored, and keeping everything in sync.
 

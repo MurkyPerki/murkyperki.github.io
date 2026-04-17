@@ -1,8 +1,8 @@
 ---
 title: Facility Map
 hasGalleryPlaceholder: true
-role: Level Designer
-pitch: Interactive industrial map with navigation
+role: Level Designer, Gameplay Developer
+pitch: "A Unity ProBuilder greybox exploring how paper-prototyped layouts translate to 3D space — testing sightlines, player flow, and room scale in an industrial facility."
 highlights:
   - Paper prototyped layout exploring player navigation
   - Full greybox created with Unity ProBuilder
@@ -24,12 +24,7 @@ I started with paper prototypes to quickly test room connections, flow, and how 
 
 From there, I built a full greybox using Unity’s ProBuilder package. This let me test scale, pacing, and line of sight directly in the engine, and make fast changes when something felt off.
 
-Right now, the project is in the iteration and polish phase.  
-I’m working on:
-
-- adding; textures to test mood and readability  
-- creating; clean, reusable prefabs for walls, doors, and props  
-- building; interactive elements like animated doors and map components  
+The greybox is complete and the project is now in the iteration and polish phase. See Next Steps below for what’s in progress.
 
 The goal is to create a facility layout that feels intuitive to explore, supports clear navigation, and can be used as a foundation for future gameplay systems.
 

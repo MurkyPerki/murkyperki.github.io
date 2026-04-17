@@ -1,6 +1,6 @@
 ---
 title: Paperboy
-role: Gameplay & Systems
+role: "Gameplay & Systems — Solo Project"
 pitch: 2D Unity prototype where a boy is trapped in his own drawing and uses drawn lines to survive and collect 3 balls.
 hasGalleryPlaceholder: true
 highlights:
@@ -23,16 +23,6 @@ lessons:
 ---
 
 Paperboy is a personal project I made in Unity to practice C# and building a full game loop.
-
-## Gameplay
-
-- You control the boy inside the paper world.
-- The goal: collect 3 balls. If you get all 3, you win.
-- If any chasing character touches you, you lose.
-- You have two types of lines:
-  - Temporary mouse line  draw anywhere with the mouse; it appears, blocks movement for a moment, then fades after a few seconds.
-  - Permanent line under the player  drawn with space, leaving a solid line behind you.
-- One special enemy can erase your lines, forcing you to keep moving and think about where you draw.
 
 ## What I Built
 
